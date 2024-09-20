@@ -77,4 +77,4 @@
 ]
 ```
 
-[< Dataset Statistics](/docs/statistics.md)
+[< Dataset Statistics](/docs/statistics)
