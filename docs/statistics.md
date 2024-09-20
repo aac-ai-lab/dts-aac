@@ -9,4 +9,4 @@ Some statistics of the generated dataset.
     - Age 2: 0.67
 
 
-[< Home](/docs/fields) | [Dataset Fields >](/docs/fields)
+[< Home](/dts-aac/docs/fields) | [Dataset Fields >](/docs/fields)

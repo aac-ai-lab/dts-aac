@@ -77,4 +77,4 @@
 ]
 ```
 
-[< Dataset Statistics](/docs/statistics)
+[< Dataset Statistics](/dts-aac/docs/statistics)
