@@ -62,33 +62,34 @@ This Dataset was created with information from the [Childes TalkBank Eng-NA tran
 ```json
 [
     {
-    "file": "011000.cha",
-    "age": 1,
-    "utterance": "oh no no no no no no dʌ [: the] dwægænz [: dragons] xxx (.) &~gorps in dɛr [: there] [/] dɛr [: there] .",
-    "utterance_complexity": {
-        "num_tokens": 17,
-        "num_content_words": 5,
-        "lexical_diversity": 0.5882352941176471,
-        "avg_word_length": 3.176470588235294,
-        "avg_sentence_length": 17,
-        "content_fraction": 0.29411764705882354,
-        "total_syllables": 18
-    },
-    "utterance_filtered": "oh no no no no no no the dragons gorps in there there",
-    "telegraphic": "dragon gorps there",
-    "telegraphic_complexity": {
-        "num_tokens": 3,
-        "num_content_words": 2,
-        "lexical_diversity": 1.0,
-        "avg_word_length": 5.333333333333333,
-        "avg_sentence_length": 3,
-        "content_fraction": 0.6666666666666666,
-        "total_syllables": 4
-    },
-    "compression_rate": 0.23076923076923078
-},
-...
+      "file": "011000.cha",
+      "age": 1,
+      "utterance": "oh no no no no no no dʌ [: the] dwægænz [: dragons] xxx (.) &~gorps in dɛr [: there] [/] dɛr [: there] .",
+      "utterance_complexity": {
+         "num_tokens": 17,
+         "num_content_words": 5,
+         "lexical_diversity": 0.5882352941176471,
+         "avg_word_length": 3.176470588235294,
+         "avg_sentence_length": 17,
+         "content_fraction": 0.29411764705882354,
+         "total_syllables": 18
+      },
+      "utterance_filtered": "oh no no no no no no the dragons gorps in there there",
+      "telegraphic": "dragon gorps there",
+      "telegraphic_complexity": {
+         "num_tokens": 3,
+         "num_content_words": 2,
+         "lexical_diversity": 1.0,
+         "avg_word_length": 5.333333333333333,
+         "avg_sentence_length": 3,
+         "content_fraction": 0.6666666666666666,
+         "total_syllables": 4
+      },
+      "compression_rate": 0.23076923076923078
+   },
+   ...
 ]
+```
 
 ## User Guide
 
