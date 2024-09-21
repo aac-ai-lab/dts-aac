@@ -51,3 +51,6 @@
 ### 9. Geração de Estatísticas
 - Cálculo de estatísticas por grupo etário.
 - As estatísticas são salvas em um arquivo de texto (OUTPUT_STATS).
+
+
+[Diagrama do Código](https://claude.site/artifacts/ec0e3652-f86e-417d-8486-88d34e090285)

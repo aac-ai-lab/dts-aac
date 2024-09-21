@@ -77,4 +77,11 @@
 ]
 ```
 
+Essa estrutura do dataset oferece várias vantagens:
+
+1. **Comparação direta**: Permite comparar facilmente as frases originais com suas versões telegráficas.
+2. **Análise de complexidade**: Fornece métricas de complexidade tanto para as frases originais quanto para as telegráficas, permitindo análises comparativas.
+3. **Contexto**: Inclui informações sobre a idade da criança e a fonte do arquivo, possibilitando análises baseadas em desenvolvimento e fonte dos dados.
+4. **Eficácia da conversão**: A taxa de compressão permite avaliar a eficácia da conversão telegráfica para cada frase.
+
 [< Dataset Statistics](/dts-aac/docs/statistics)

@@ -8,9 +8,10 @@ This Dataset was created with information from the [Childes TalkBank Eng-NA tran
 
 ## Documentation
 
-- [Dataset Statistics](/docs/statistics.md)
-- [Dataset Fields](/docs/fields.md)
-- [Diagrama do Código](https://claude.site/artifacts/ec0e3652-f86e-417d-8486-88d34e090285)
+- [Dataset Statistics](/docs/statistics)
+- [Dataset Fields](/docs/fields)
+- [Dataset Creation](/docs/creation)
+- [Limitations](/docs/limitations)
 
 ## User Guide
 
@@ -25,6 +26,9 @@ Host: https://aac-ai-lab.github.io HTTP/1.1
 ## Presentation
 
 ## Publication
+
+ - [](https://figshare.com/)
+ - [](https://zenodo.org/)
 
 ## Credits
 
