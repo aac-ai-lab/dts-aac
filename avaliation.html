@@ -33,6 +33,7 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            margin-right: 10px;
         }
         button:hover {
             background-color: #45a049;
@@ -45,34 +46,53 @@
 </head>
 <body>
     <h1>Avaliação de Frases Telegráficas</h1>
-    <p>Avalie a qualidade das frases telegráficas geradas. Use a escala de 1 a 5, onde 1 significa 'muito ruim' e 5 significa 'excelente'.</p>
+    <p>Avalie a qualidade das 5 frases telegráficas geradas aleatoriamente. Use a escala de 1 a 5, onde 1 significa 'muito ruim' e 5 significa 'excelente'.</p>
     <div id="frases"></div>
     <button onclick="salvarAvaliacoes()">Salvar Avaliações</button>
+    <button onclick="carregarNovaAmostra()">Carregar Nova Amostra</button>
     <div id="resultado"></div>
 
     <script>
-        let dataset = [];
+        let datasetCompleto = [];
+        let amostraAtual = [];
 
         // Função para carregar o dataset do arquivo JSON
         async function carregarDataset() {
             try {
-                const response = await fetch('dataset.json');
+                const response = await fetch('dts_aac.json');
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                dataset = await response.json();
-                gerarInterface();
+                datasetCompleto = await response.json();
+                carregarNovaAmostra();
             } catch (e) {
                 console.error("Erro ao carregar o dataset:", e);
                 document.getElementById('frases').innerHTML = "Erro ao carregar o dataset. Por favor, verifique se o arquivo JSON está disponível e tente novamente.";
             }
         }
 
+        // Função para selecionar aleatoriamente 5 frases
+        function selecionarAmostraAleatoria() {
+            const amostra = [];
+            const copiaDataset = [...datasetCompleto];
+            for (let i = 0; i < 5 && copiaDataset.length > 0; i++) {
+                const indiceAleatorio = Math.floor(Math.random() * copiaDataset.length);
+                amostra.push(copiaDataset.splice(indiceAleatorio, 1)[0]);
+            }
+            return amostra;
+        }
+
+        // Função para carregar nova amostra e gerar interface
+        function carregarNovaAmostra() {
+            amostraAtual = selecionarAmostraAleatoria();
+            gerarInterface();
+        }
+
         // Função para gerar a interface de avaliação
         function gerarInterface() {
             const frasesDiv = document.getElementById('frases');
             frasesDiv.innerHTML = ''; // Limpa o conteúdo anterior
-            dataset.forEach((item, index) => {
+            amostraAtual.forEach((item, index) => {
                 const fraseHtml = `
                     <div class="frase">
                         <p><strong>Frase ${index + 1} - Original:</strong> ${item.utterance_filtered}</p>
@@ -88,7 +108,7 @@
             });
 
             // Adicionar event listeners para atualizar os valores exibidos
-            dataset.forEach((_, index) => {
+            amostraAtual.forEach((_, index) => {
                 const slider = document.getElementById(`avaliacao${index}`);
                 const valor = document.getElementById(`valor${index}`);
                 slider.addEventListener('input', () => {
@@ -99,9 +119,9 @@
 
         // Função para salvar as avaliações
         function salvarAvaliacoes() {
-            const avaliacoes = dataset.map((item, index) => {
+            const avaliacoes = amostraAtual.map((item, index) => {
                 return {
-                    id: index,
+                    id: datasetCompleto.findIndex(d => d.utterance_filtered === item.utterance_filtered),
                     utterance_filtered: item.utterance_filtered,
                     telegraphic: item.telegraphic,
                     rating: parseInt(document.getElementById(`avaliacao${index}`).value)
