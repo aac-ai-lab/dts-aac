@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliação de Frases Telegráficas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #333;
+        }
+        .frase {
+            background-color: #f4f4f4;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .avaliacao {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #resultado {
+            margin-top: 20px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>Avaliação de Frases Telegráficas</h1>
+    <p>Avalie a qualidade das frases telegráficas geradas. Use a escala de 1 a 5, onde 1 significa 'muito ruim' e 5 significa 'excelente'.</p>
+    <div id="frases"></div>
+    <button onclick="salvarAvaliacoes()">Salvar Avaliações</button>
+    <div id="resultado"></div>
+
+    <script>
+        let dataset = [];
+
+        // Função para carregar o dataset do arquivo JSON
+        async function carregarDataset() {
+            try {
+                const response = await fetch('dataset.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                dataset = await response.json();
+                gerarInterface();
+            } catch (e) {
+                console.error("Erro ao carregar o dataset:", e);
+                document.getElementById('frases').innerHTML = "Erro ao carregar o dataset. Por favor, verifique se o arquivo JSON está disponível e tente novamente.";
+            }
+        }
+
+        // Função para gerar a interface de avaliação
+        function gerarInterface() {
+            const frasesDiv = document.getElementById('frases');
+            frasesDiv.innerHTML = ''; // Limpa o conteúdo anterior
+            dataset.forEach((item, index) => {
+                const fraseHtml = `
+                    <div class="frase">
+                        <p><strong>Frase ${index + 1} - Original:</strong> ${item.utterance_filtered}</p>
+                        <p><strong>Frase ${index + 1} - Telegrafada:</strong> ${item.telegraphic}</p>
+                        <div class="avaliacao">
+                            <span>Avaliação:</span>
+                            <input type="range" min="1" max="5" value="3" class="slider" id="avaliacao${index}">
+                            <span id="valor${index}">3</span>
+                        </div>
+                    </div>
+                `;
+                frasesDiv.innerHTML += fraseHtml;
+            });
+
+            // Adicionar event listeners para atualizar os valores exibidos
+            dataset.forEach((_, index) => {
+                const slider = document.getElementById(`avaliacao${index}`);
+                const valor = document.getElementById(`valor${index}`);
+                slider.addEventListener('input', () => {
+                    valor.textContent = slider.value;
+                });
+            });
+        }
+
+        // Função para salvar as avaliações
+        function salvarAvaliacoes() {
+            const avaliacoes = dataset.map((item, index) => {
+                return {
+                    id: index,
+                    utterance_filtered: item.utterance_filtered,
+                    telegraphic: item.telegraphic,
+                    rating: parseInt(document.getElementById(`avaliacao${index}`).value)
+                };
+            });
+
+            const resultado = document.getElementById('resultado');
+            resultado.textContent = JSON.stringify(avaliacoes, null, 2);
+        }
+
+        // Inicializar a aplicação carregando o dataset
+        carregarDataset();
+    </script>
+</body>
+</html>
