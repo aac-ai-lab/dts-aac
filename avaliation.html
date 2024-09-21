@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avaliação de Frases Telegráficas</title>
+    <title>Avaliação de Frases Telegráficas - Dataset CHILDES</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,38 +12,63 @@
             padding: 20px;
             max-width: 800px;
             margin: 0 auto;
-        }
-        h1, h2 {
             color: #333;
         }
-        .frase, #formularioAvaliador {
-            background-color: #f4f4f4;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 5px;
+
+        h1,
+        h2 {
+            color: #2c3e50;
         }
+
+        .section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .frase {
+            background-color: #ffffff;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+        }
+
         .avaliacao {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             margin-top: 10px;
         }
+
         button {
-            background-color: #4CAF50;
+            background-color: #3498db;
             color: white;
             padding: 10px 15px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             margin-right: 10px;
+            transition: background-color 0.3s;
         }
+
         button:hover {
-            background-color: #45a049;
+            background-color: #2980b9;
         }
+
         #resultado {
             margin-top: 20px;
             white-space: pre-wrap;
+            background-color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
         }
-        input[type="text"], input[type="number"], select {
+
+        input[type="text"],
+        input[type="number"],
+        select {
             width: 100%;
             padding: 8px;
             margin: 5px 0 15px;
@@ -51,23 +77,49 @@
             border-radius: 4px;
             box-sizing: border-box;
         }
+
         label {
             font-weight: bold;
         }
+
+        .intro {
+            font-size: 16px;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
     </style>
 </head>
+
 <body>
-    <h1>Avaliação de Frases Telegráficas</h1>
-    
-    <div id="formularioAvaliador">
+    <h1>Avaliação de Frases Telegráficas - Dataset CHILDES</h1>
+
+    <div class="section">
+        <h2>Introdução</h2>
+        <p class="intro">
+            Bem-vindo à nossa plataforma de avaliação de frases telegráficas. Este projeto visa analisar a qualidade de
+            um dataset telegráfico que desenvolvemos a partir de dados de falas de crianças do dataset CHILDES (Child
+            Language Data Exchange System).
+        </p>
+        <p class="intro">
+            As frases telegráficas são versões simplificadas das falas originais, mantendo apenas as palavras essenciais
+            para o significado. Sua tarefa é avaliar se essas frases telegráficas geradas preservam adequadamente o
+            sentido original e se são compreensíveis.
+        </p>
+        <p class="intro">
+            Sua participação é fundamental para validar e aprimorar nosso método de geração de frases telegráficas,
+            contribuindo para avanços em pesquisas sobre aquisição de linguagem e processamento de linguagem natural.
+        </p>
+    </div>
+
+    <div id="formularioAvaliador" class="section">
         <h2>Informações do Avaliador</h2>
         <form id="formAvaliador">
             <label for="nome">Nome:</label>
             <input type="text" id="nome" name="nome" required>
-            
+
             <label for="idade">Idade:</label>
             <input type="number" id="idade" name="idade" min="18" max="120" required>
-            
+
             <label for="genero">Gênero:</label>
             <select id="genero" name="genero" required>
                 <option value="">Selecione</option>
@@ -76,7 +128,7 @@
                 <option value="outro">Outro</option>
                 <option value="prefiro_nao_dizer">Prefiro não dizer</option>
             </select>
-            
+
             <label for="escolaridade">Nível de Escolaridade:</label>
             <select id="escolaridade" name="escolaridade" required>
                 <option value="">Selecione</option>
@@ -85,7 +137,7 @@
                 <option value="superior">Ensino Superior</option>
                 <option value="pos_graduacao">Pós-Graduação</option>
             </select>
-            
+
             <label for="experiencia">Experiência com Linguística ou Processamento de Linguagem Natural:</label>
             <select id="experiencia" name="experiencia" required>
                 <option value="">Selecione</option>
@@ -94,26 +146,36 @@
                 <option value="intermediaria">Intermediária</option>
                 <option value="avancada">Avançada</option>
             </select>
-            
+
             <button type="submit">Iniciar Avaliação</button>
         </form>
     </div>
 
-    <div id="avaliacaoFrases" style="display: none;">
-        <p>Avalie a qualidade das 5 frases telegráficas geradas aleatoriamente. Use a escala de 1 a 5, onde 1 significa 'muito ruim' e 5 significa 'excelente'.</p>
+    <div id="avaliacaoFrases" class="section" style="display: none;">
+        <h2>Avaliação das Frases</h2>
+        <p>
+            Avalie a qualidade das 5 frases telegráficas geradas aleatoriamente. Use a escala de 1 a 5, onde:
+        </p>
+        <ul>
+            <li>1 = Muito ruim (perde completamente o sentido original)</li>
+            <li>2 = Ruim (perde parte significativa do sentido)</li>
+            <li>3 = Regular (mantém o sentido básico, mas com falhas)</li>
+            <li>4 = Bom (mantém bem o sentido, com pequenas imperfeições)</li>
+            <li>5 = Excelente (mantém perfeitamente o sentido original)</li>
+        </ul>
         <div id="frases"></div>
         <button onclick="salvarAvaliacoes()">Salvar Avaliações</button>
         <button onclick="carregarNovaAmostra()">Carregar Nova Amostra</button>
     </div>
-    
+
     <div id="resultado"></div>
 
     <script>
+        // O script JavaScript permanece o mesmo que na versão anterior
         let datasetCompleto = [];
         let amostraAtual = [];
         let infoAvaliador = {};
 
-        // Função para carregar o dataset do arquivo JSON
         async function carregarDataset() {
             try {
                 const response = await fetch('dataset.json');
@@ -127,7 +189,6 @@
             }
         }
 
-        // Função para selecionar aleatoriamente 5 frases
         function selecionarAmostraAleatoria() {
             const amostra = [];
             const copiaDataset = [...datasetCompleto];
@@ -138,16 +199,14 @@
             return amostra;
         }
 
-        // Função para carregar nova amostra e gerar interface
         function carregarNovaAmostra() {
             amostraAtual = selecionarAmostraAleatoria();
             gerarInterface();
         }
 
-        // Função para gerar a interface de avaliação
         function gerarInterface() {
             const frasesDiv = document.getElementById('frases');
-            frasesDiv.innerHTML = ''; // Limpa o conteúdo anterior
+            frasesDiv.innerHTML = '';
             amostraAtual.forEach((item, index) => {
                 const fraseHtml = `
                     <div class="frase">
@@ -163,7 +222,6 @@
                 frasesDiv.innerHTML += fraseHtml;
             });
 
-            // Adicionar event listeners para atualizar os valores exibidos
             amostraAtual.forEach((_, index) => {
                 const slider = document.getElementById(`avaliacao${index}`);
                 const valor = document.getElementById(`valor${index}`);
@@ -173,7 +231,6 @@
             });
         }
 
-        // Função para salvar as avaliações
         function salvarAvaliacoes() {
             const avaliacoes = amostraAtual.map((item, index) => {
                 return {
@@ -193,8 +250,7 @@
             resultado.textContent = JSON.stringify(resultadoCompleto, null, 2);
         }
 
-        // Event listener para o formulário do avaliador
-        document.getElementById('formAvaliador').addEventListener('submit', function(e) {
+        document.getElementById('formAvaliador').addEventListener('submit', function (e) {
             e.preventDefault();
             infoAvaliador = {
                 nome: document.getElementById('nome').value,
@@ -208,8 +264,8 @@
             carregarNovaAmostra();
         });
 
-        // Inicializar a aplicação carregando o dataset
         carregarDataset();
     </script>
 </body>
+
 </html>
