@@ -53,4 +53,28 @@
 - As estatísticas são salvas em um arquivo de texto (OUTPUT_STATS).
 
 
-[Diagrama do Código](https://claude.site/artifacts/ec0e3652-f86e-417d-8486-88d34e090285)
+### Diagrama do Código
+
+[https://claude.site/artifacts/ec0e3652-f86e-417d-8486-88d34e090285](https://claude.site/artifacts/ec0e3652-f86e-417d-8486-88d34e090285)
+
+Este diagrama de fluxo representa o processo de criação do dataset AAC conforme implementado no código fornecido. Aqui está uma breve explicação do fluxo:
+
+1. O processo inicia com a carga do modelo spaCy e a configuração de logging.
+2. Os parâmetros e diretórios são definidos.
+3. O processamento de arquivos começa, iterando sobre cada arquivo .cha no diretório especificado.
+4. Para cada arquivo, a idade da criança é extraída.
+5. Cada linha do arquivo é processada, focando nas linhas que começam com '*CHI:'.
+6. As frases das crianças são extraídas, limpas e pré-processadas.
+7. Várias verificações são realizadas para garantir a qualidade das frases:
+
+    - A frase deve ter pelo menos 3 palavras após a limpeza.
+    - A versão telegráfica da frase também deve ter pelo menos 3 palavras.
+    - A taxa de compressão deve ser <= 0.8.
+    - A diversidade lexical da versão telegráfica deve ser > 0.5.
+
+
+8. Se todas as condições forem atendidas, a frase é adicionada ao dataset e as estatísticas são atualizadas.
+9. Após processar todos os arquivos, as estatísticas finais são calculadas.
+10. O dataset é salvo em formato JSON e as estatísticas são salvas em um arquivo de texto.
+
+Este diagrama ajuda a visualizar o fluxo lógico do processo e os pontos de decisão críticos na criação do dataset. Ele pode ser útil para entender o processo geral, identificar possíveis gargalos ou áreas para otimização, e comunicar o fluxo de trabalho para outros membros da equipe ou stakeholders.
