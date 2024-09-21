@@ -12,10 +12,10 @@
             max-width: 800px;
             margin: 0 auto;
         }
-        h1 {
+        h1, h2 {
             color: #333;
         }
-        .frase {
+        .frase, #formularioAvaliador {
             background-color: #f4f4f4;
             padding: 15px;
             margin-bottom: 20px;
@@ -42,19 +42,76 @@
             margin-top: 20px;
             white-space: pre-wrap;
         }
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 15px;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        label {
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
     <h1>Avaliação de Frases Telegráficas</h1>
-    <p>Avalie a qualidade das 5 frases telegráficas geradas aleatoriamente. Use a escala de 1 a 5, onde 1 significa 'muito ruim' e 5 significa 'excelente'.</p>
-    <div id="frases"></div>
-    <button onclick="salvarAvaliacoes()">Salvar Avaliações</button>
-    <button onclick="carregarNovaAmostra()">Carregar Nova Amostra</button>
+    
+    <div id="formularioAvaliador">
+        <h2>Informações do Avaliador</h2>
+        <form id="formAvaliador">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+            
+            <label for="idade">Idade:</label>
+            <input type="number" id="idade" name="idade" min="18" max="120" required>
+            
+            <label for="genero">Gênero:</label>
+            <select id="genero" name="genero" required>
+                <option value="">Selecione</option>
+                <option value="masculino">Masculino</option>
+                <option value="feminino">Feminino</option>
+                <option value="outro">Outro</option>
+                <option value="prefiro_nao_dizer">Prefiro não dizer</option>
+            </select>
+            
+            <label for="escolaridade">Nível de Escolaridade:</label>
+            <select id="escolaridade" name="escolaridade" required>
+                <option value="">Selecione</option>
+                <option value="fundamental">Ensino Fundamental</option>
+                <option value="medio">Ensino Médio</option>
+                <option value="superior">Ensino Superior</option>
+                <option value="pos_graduacao">Pós-Graduação</option>
+            </select>
+            
+            <label for="experiencia">Experiência com Linguística ou Processamento de Linguagem Natural:</label>
+            <select id="experiencia" name="experiencia" required>
+                <option value="">Selecione</option>
+                <option value="nenhuma">Nenhuma</option>
+                <option value="basica">Básica</option>
+                <option value="intermediaria">Intermediária</option>
+                <option value="avancada">Avançada</option>
+            </select>
+            
+            <button type="submit">Iniciar Avaliação</button>
+        </form>
+    </div>
+
+    <div id="avaliacaoFrases" style="display: none;">
+        <p>Avalie a qualidade das 5 frases telegráficas geradas aleatoriamente. Use a escala de 1 a 5, onde 1 significa 'muito ruim' e 5 significa 'excelente'.</p>
+        <div id="frases"></div>
+        <button onclick="salvarAvaliacoes()">Salvar Avaliações</button>
+        <button onclick="carregarNovaAmostra()">Carregar Nova Amostra</button>
+    </div>
+    
     <div id="resultado"></div>
 
     <script>
         let datasetCompleto = [];
         let amostraAtual = [];
+        let infoAvaliador = {};
 
         // Função para carregar o dataset do arquivo JSON
         async function carregarDataset() {
@@ -64,7 +121,6 @@
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 datasetCompleto = await response.json();
-                carregarNovaAmostra();
             } catch (e) {
                 console.error("Erro ao carregar o dataset:", e);
                 document.getElementById('frases').innerHTML = "Erro ao carregar o dataset. Por favor, verifique se o arquivo JSON está disponível e tente novamente.";
@@ -128,9 +184,29 @@
                 };
             });
 
+            const resultadoCompleto = {
+                avaliador: infoAvaliador,
+                avaliacoes: avaliacoes
+            };
+
             const resultado = document.getElementById('resultado');
-            resultado.textContent = JSON.stringify(avaliacoes, null, 2);
+            resultado.textContent = JSON.stringify(resultadoCompleto, null, 2);
         }
+
+        // Event listener para o formulário do avaliador
+        document.getElementById('formAvaliador').addEventListener('submit', function(e) {
+            e.preventDefault();
+            infoAvaliador = {
+                nome: document.getElementById('nome').value,
+                idade: document.getElementById('idade').value,
+                genero: document.getElementById('genero').value,
+                escolaridade: document.getElementById('escolaridade').value,
+                experiencia: document.getElementById('experiencia').value
+            };
+            document.getElementById('formularioAvaliador').style.display = 'none';
+            document.getElementById('avaliacaoFrases').style.display = 'block';
+            carregarNovaAmostra();
+        });
 
         // Inicializar a aplicação carregando o dataset
         carregarDataset();
