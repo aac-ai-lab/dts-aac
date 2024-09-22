@@ -8,10 +8,10 @@ This Dataset was created with information from the [Childes TalkBank Eng-NA tran
 
 ## Documentation
 
-- [Dataset Statistics](/docs/statistics)
-- [Dataset Fields](/docs/fields)
-- [Dataset Creation](/docs/creation)
-- [Limitations](/docs/limitations)
+- [Dataset Statistics](/docs/statistics.md)
+- [Dataset Fields](/docs/fields.md)
+- [Dataset Creation](/docs/creation.md)
+- [Limitations](/docs/limitations.md)
 
 ## User Guide
 
